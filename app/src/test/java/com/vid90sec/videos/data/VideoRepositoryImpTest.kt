@@ -1,6 +1,7 @@
-package com.vid90sec.videos.domain.interactor
+package com.vid90sec.videos.data
 
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
+import com.vid90sec.videos.data.source.VideoSource
 import com.vid90sec.videos.domain.repo.VideoRepository
 import com.vid90sec.videos.factory.MockVideoFactory
 import io.reactivex.Observable
@@ -14,28 +15,30 @@ import org.mockito.MockitoAnnotations
 /**
  * Created by Mudassar Hussain on 11/24/2019.
  */
-class VideoIntractorImpTest {
+class VideoRepositoryImpTest {
 
-    lateinit var videoIntractor: VideoIntractor
+    lateinit var videoRepository: VideoRepository
 
     @Mock
-    lateinit var videoRepository: VideoRepository
+    lateinit var videoSource: VideoSource
 
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        videoIntractor = VideoIntractorImp(videoRepository)
+        videoRepository = VideoRepositoryImp(videoSource)
     }
 
-    @Test
-    fun loadPlayList_shouldReturnPlayList() {
-        var mockPlayList = MockVideoFactory.getPlayList(3)
 
-        //return mock data when videoRepository.getPlayList() is called
-        `when`(videoRepository.getPlayList()).thenReturn(Observable.just(mockPlayList))
+
+    @Test
+    fun getPlayList_shouldReturnPlayList() {
+        var mockPlayList = MockVideoFactory.getPlayList(5)
+
+        //return mock data when videoSource.getPlayList() is called
+        `when`(videoSource.getPlayList()).thenReturn(Observable.just(mockPlayList))
 
         //loadPlayList
-        var testObserver  = videoIntractor.loadPlayList().test()
+        var testObserver  = videoRepository.getPlayList().test()
 
         //verify
         testObserver.awaitTerminalEvent()
@@ -47,7 +50,6 @@ class VideoIntractorImpTest {
 
         var data = testObserver.values().get(0)
 
-        assertThat(data).isEqualTo(mockPlayList)
-
+        Truth.assertThat(data).isEqualTo(mockPlayList)
     }
 }

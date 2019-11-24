@@ -37,7 +37,7 @@ class PlayListViewModelTest{
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        scheduler = TestScheduler()
+        scheduler = TestScheduler
         playListViewModel = PlayListViewModel(videoIntractor,scheduler)
     }
 
@@ -47,7 +47,7 @@ class PlayListViewModelTest{
         var mockOutput = MockVideoFactory.getPlayList(3)
 
         //return mock data when videoIntractor.loadPlayList() is called
-        `when`(videoIntractor.loadPlayList()).`thenReturn`(Observable.just(mockOutput))
+        `when`(videoIntractor.loadPlayList()).thenReturn(Observable.just(mockOutput))
 
         //loadChannels
         playListViewModel.loadChannelVideos()
@@ -59,5 +59,23 @@ class PlayListViewModelTest{
 
         assertThat(data).isEqualTo(mockOutput)
 
+    }
+
+    @Test
+    fun loadChannelVideos_withError_ShouldThrowError(){
+
+        //return mock error when videoIntractor.loadPlayList() is called
+
+        var exception = Exception("Mock Exception!!")
+
+        `when`(videoIntractor.loadPlayList()).thenReturn(Observable.error(exception))
+
+        //load
+        playListViewModel.loadChannelVideos()
+
+        var error = getValue(playListViewModel.error)
+
+        //verify
+        assertThat(error).isNotNull()
     }
 }

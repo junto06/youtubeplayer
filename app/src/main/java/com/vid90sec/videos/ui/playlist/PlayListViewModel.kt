@@ -24,6 +24,12 @@ class PlayListViewModel(val videoIntractor: VideoIntractor,val scheduler:ISchedu
         get() = _data
 
 
+    //viewholder for error state
+    private val _error:MutableLiveData<String> = MutableLiveData()
+    val error:MutableLiveData<String>
+        get() = _error
+
+
     fun loadChannelVideos(){
         //return if already loading
         //This can happens when device get rotated and another request is already in process
@@ -35,10 +41,14 @@ class PlayListViewModel(val videoIntractor: VideoIntractor,val scheduler:ISchedu
         videoIntractor.loadPlayList()
             .subscribeOn(scheduler.io())
             .observeOn(scheduler.ui())
-            .subscribe {
+            .subscribe ({
                 _data.value = it
                 _dataLoading.value = false
-            }
+            },
+                {
+                    _error.value = it.toString()
+                    _dataLoading.value = false
+                })
 
     }
 }

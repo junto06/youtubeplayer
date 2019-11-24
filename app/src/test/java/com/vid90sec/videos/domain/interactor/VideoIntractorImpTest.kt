@@ -29,9 +29,8 @@ class VideoIntractorImpTest {
 
     @Test
     fun loadPlayList_shouldReturnPlayList() {
-        var mockPlayList = MockVideoFactory.getPlayList(3)
-
         //return mock data when videoRepository.getPlayList() is called
+        var mockPlayList = MockVideoFactory.getMockPlayList(3)
         `when`(videoRepository.getPlayList()).thenReturn(Observable.just(mockPlayList))
 
         //loadPlayList

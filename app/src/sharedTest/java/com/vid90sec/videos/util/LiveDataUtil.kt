@@ -1,4 +1,4 @@
-package com.vid90sec.videos.utill
+package com.vid90sec.videos.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

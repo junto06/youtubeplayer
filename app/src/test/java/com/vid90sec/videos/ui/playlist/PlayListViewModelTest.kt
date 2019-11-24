@@ -6,7 +6,7 @@ import com.vid90sec.videos.domain.interactor.VideoIntractor
 import com.vid90sec.videos.factory.MockVideoFactory
 import com.vid90sec.videos.util.scheduler.IScheduler
 import com.vid90sec.videos.util.scheduler.TestScheduler
-import com.vid90sec.videos.utill.LiveDataUtil.getValue
+import com.vid90sec.videos.util.LiveDataUtil.getValue
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
@@ -44,17 +44,16 @@ class PlayListViewModelTest{
     @Test
     fun loadChannelVideos_ShouldReturnPlayList(){
 
-        var mockOutput = MockVideoFactory.getPlayList(3)
-
         //return mock data when videoIntractor.loadPlayList() is called
+        var mockOutput = MockVideoFactory.getMockPlayList(3)
         `when`(videoIntractor.loadPlayList()).thenReturn(Observable.just(mockOutput))
 
-        //loadChannels
+        //loadChannelVideos
         playListViewModel.loadChannelVideos()
 
+        //verify
         var data = getValue(playListViewModel.data)
 
-        //verify
         assertThat(data).isNotNull()
 
         assertThat(data).isEqualTo(mockOutput)
@@ -65,12 +64,10 @@ class PlayListViewModelTest{
     fun loadChannelVideos_withError_ShouldThrowError(){
 
         //return mock error when videoIntractor.loadPlayList() is called
-
         var exception = Exception("Mock Exception!!")
-
         `when`(videoIntractor.loadPlayList()).thenReturn(Observable.error(exception))
 
-        //load
+        //loadChannelVideos
         playListViewModel.loadChannelVideos()
 
         var error = getValue(playListViewModel.error)

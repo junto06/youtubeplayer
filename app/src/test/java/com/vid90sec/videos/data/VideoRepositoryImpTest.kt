@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations
  */
 class VideoRepositoryImpTest {
 
+    //subject under test
     lateinit var videoRepository: VideoRepository
 
     @Mock
@@ -32,12 +33,11 @@ class VideoRepositoryImpTest {
 
     @Test
     fun getPlayList_shouldReturnPlayList() {
-        var mockPlayList = MockVideoFactory.getPlayList(5)
-
         //return mock data when videoSource.getPlayList() is called
+        var mockPlayList = MockVideoFactory.getMockPlayList(5)
         `when`(videoSource.getPlayList()).thenReturn(Observable.just(mockPlayList))
 
-        //loadPlayList
+        //getPlayList
         var testObserver  = videoRepository.getPlayList().test()
 
         //verify

@@ -8,7 +8,7 @@ import io.reactivex.Observable
 /**
  * Created by Mudassar Hussain on 11/24/2019.
  */
-class VideoRepositoryImp(val videoSource: VideoSource):VideoRepository{
+class VideoRepositoryImp constructor(val videoSource: VideoSource):VideoRepository{
     override fun getPlayList(): Observable<PlayList> {
         return videoSource.getPlayList()
     }

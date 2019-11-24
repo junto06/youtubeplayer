@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.vid90sec.videos.data.source.youtube.model.YouTubeVideoItem
 import com.vid90sec.videos.domain.model.Video
 import com.vid90sec.videos.factory.MockYouTubeVideoFactory
+import com.vid90sec.videos.util.AssertHelper
 import org.junit.Test
 
 import org.junit.Before
@@ -30,7 +31,7 @@ class YouTubeDomainMapperTest {
 
         assertThat(playList.items.size == 1).isTrue()
 
-        assertVideoItem(playList.items[0],mockYoutubePlaylist.items[0])
+        AssertHelper.assertVideoItem(playList.items[0],mockYoutubePlaylist.items[0])
     }
 
     @Test
@@ -42,7 +43,7 @@ class YouTubeDomainMapperTest {
 
         assertThat(videoList.size == 1).isTrue()
 
-        assertVideoItem(videoList[0],mockYoutubeVideoItems[0])
+        AssertHelper.assertVideoItem(videoList[0],mockYoutubeVideoItems[0])
     }
 
     @Test
@@ -51,16 +52,8 @@ class YouTubeDomainMapperTest {
 
         var video = youTubeDomainMapper.toDomainItem(mockYoutubeVideoItem)
 
-        assertVideoItem(video,mockYoutubeVideoItem)
+        AssertHelper.assertVideoItem(video,mockYoutubeVideoItem)
     }
 
-    private fun assertVideoItem(video: Video,youtuebeVide:YouTubeVideoItem) {
-        video.apply {
-            assertThat(videoId).isEqualTo(youtuebeVide.contentDetails.videoId)
-            assertThat(videoTitle).isEqualTo(youtuebeVide.snippet.title)
-            assertThat(videoDescription).isEqualTo(youtuebeVide.snippet.description)
-            assertThat(channelTitle).isEqualTo(youtuebeVide.snippet.channelTitle)
-            assertThat(publishedAt).isEqualTo(youtuebeVide.contentDetails.videoPublishedAt)
-        }
-    }
+
 }

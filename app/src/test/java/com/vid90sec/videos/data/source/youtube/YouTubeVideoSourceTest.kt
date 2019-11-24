@@ -62,7 +62,7 @@ class YouTubeVideoSourceTest {
 
         //verify with mock data
 
-        var data = testObserver.values().get(0)
+        var data = testObserver.values()[0]
         Truth.assertThat(data).isEqualTo(mockPlayList)
     }
 }

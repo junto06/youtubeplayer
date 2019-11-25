@@ -33,7 +33,9 @@ class RetrofitHelperTest {
 
         Mockito.`when`(config.baseUrl()).thenReturn("https://abc.com/")
 
-        var httpClient = OkHttpHelper().createHttpClient()
+        Mockito.`when`(config.showHttpLogs()).thenReturn(false)
+
+        var httpClient = OkHttpHelper().createHttpClient(config)
 
         var client = retrofitHelper.createRetrofit(config,httpClient)
 

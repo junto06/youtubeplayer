@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="playListViewModel" type="com.vid90sec.videos.ui.playlist.PlayListViewModel"/>
+    </data>
+    <LinearLayout
+            android:id="@+id/rootPlaylist"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/playListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/side_margin"
+                />
+
+    </LinearLayout>
+</layout>

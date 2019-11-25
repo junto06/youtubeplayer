@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="item" type="com.vid90sec.videos.domain.model.Video"/>
+    </data>
+    <LinearLayout
+            android:id="@+id/rootItem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/video_item_height"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/side_margin"
+            android:background="?android:attr/activatedBackgroundIndicator">
+
+            <com.google.android.youtube.player.YouTubeThumbnailView
+                android:id="@+id/thumbnail"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/no_thumbnail"
+                />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@{item.videoTitle}"
+                android:maxLines="2"
+                android:layout_marginTop="@dimen/video_title_top_margin"
+                android:textStyle = "bold"
+                android:textAppearance = "?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorVideoTitle"/>
+
+        <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@{item.videoDescription}"
+                android:maxLines="1"
+                android:textAppearance = "?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorVideoTitle"
+                android:layout_marginTop="@dimen/video_description_top_margin"/>
+
+    </LinearLayout>
+</layout>

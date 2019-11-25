@@ -1,16 +1,21 @@
 package com.vid90sec.videos.ui.playlist
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vid90sec.videos.domain.interactor.VideoIntractor
 import com.vid90sec.videos.domain.model.PlayList
+import com.vid90sec.videos.util.network.ErrorHelper
 import com.vid90sec.videos.util.scheduler.AppScheduler
 import com.vid90sec.videos.util.scheduler.IScheduler
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by Mudassar Hussain on 11/24/2019.
  */
-class PlayListViewModel(val videoIntractor: VideoIntractor,val scheduler:IScheduler = AppScheduler()):ViewModel(){
+class PlayListViewModel(private val context: Context,private val videoIntractor: VideoIntractor,private val scheduler:IScheduler = AppScheduler()):ViewModel(){
+
+    private val compositeDisposable = CompositeDisposable()
 
     //flag indicating operation already in progress
     private val _dataLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -38,17 +43,24 @@ class PlayListViewModel(val videoIntractor: VideoIntractor,val scheduler:ISchedu
         }
         _dataLoading.value = true
 
-        videoIntractor.loadPlayList()
+        var disposable = videoIntractor.loadPlayList()
             .subscribeOn(scheduler.io())
             .observeOn(scheduler.ui())
             .subscribe ({
+                System.out.println(it.toString())
                 _data.value = it
                 _dataLoading.value = false
             },
                 {
-                    _error.value = it.toString()
+                    _error.value = ErrorHelper.logError(it,context)
                     _dataLoading.value = false
                 })
 
+        compositeDisposable.add(disposable)
+    }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
     }
 }

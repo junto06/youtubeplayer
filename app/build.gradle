@@ -31,6 +31,11 @@ android {
             java.srcDir 'src/sharedTest/java'
         }
     }
+
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
 }
 
 dependencies {
@@ -39,6 +44,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecyleExtVersion"
+    implementation "com.google.android.material:$materialVersion"
 
     //Testing
     testImplementation "junit:junit:$junitVersion"
@@ -48,6 +55,8 @@ dependencies {
     testImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     testImplementation "com.google.truth:truth:$truthVersion"
     androidTestImplementation "androidx.test:runner:$androidXTestrunner"
+    androidTestImplementation "androidx.test:core:$androidXTestCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
     //rxandroid
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
@@ -64,4 +73,13 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+
+    //logging
+    implementation "com.squareup.okhttp3:logging-interceptor:$httploggingVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    //navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="side_margin">16dp</dimen>
+
+    <dimen name="video_item_height">100dp</dimen>
+
+    <dimen name="video_title_top_margin">8dp</dimen>
+
+    <dimen name="video_description_top_margin">5dp</dimen>
+
+</resources>

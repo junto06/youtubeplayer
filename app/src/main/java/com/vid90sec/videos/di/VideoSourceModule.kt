@@ -1,5 +1,6 @@
 package com.vid90sec.videos.di
 
+import com.vid90sec.videos.data.source.VideoSource
 import com.vid90sec.videos.data.source.youtube.YouTubeVideoSource
 import com.vid90sec.videos.data.source.youtube.api.YouTubeVideoApi
 import com.vid90sec.videos.data.source.youtube.mapper.YouTubeDomainMapper
@@ -24,10 +25,12 @@ class VideoSourceModule{
 
     @Provides
     @VideoScope
-    fun provideYouTubeVideoMapper():YouTubeToDomainMapper<YouTubePlayList, PlayList, YouTubeVideoItem, Video> = YouTubeDomainMapper()
+    fun provideYouTubeVideoMapper()
+            :YouTubeToDomainMapper<YouTubePlayList, PlayList, YouTubeVideoItem, Video> = YouTubeDomainMapper()
 
     @Provides
     @VideoScope
-    fun provideVideoSource(youTubeVideoApi: YouTubeVideoApi,mapper: YouTubeToDomainMapper<YouTubePlayList, PlayList, YouTubeVideoItem, Video>)
-            = YouTubeVideoSource(youTubeVideoApi,mapper)
+    fun provideVideoSource(youTubeVideoApi: YouTubeVideoApi,
+                           mapper: YouTubeToDomainMapper<YouTubePlayList, PlayList, YouTubeVideoItem, Video>)
+            :VideoSource = YouTubeVideoSource(youTubeVideoApi,mapper)
 }

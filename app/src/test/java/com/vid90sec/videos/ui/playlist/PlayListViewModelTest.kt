@@ -1,7 +1,9 @@
 package com.vid90sec.videos.ui.playlist
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import com.vid90sec.videos.R
 import com.vid90sec.videos.domain.interactor.VideoIntractor
 import com.vid90sec.videos.factory.MockVideoFactory
 import com.vid90sec.videos.util.scheduler.IScheduler
@@ -31,6 +33,9 @@ class PlayListViewModelTest{
     @Mock
     lateinit var videoIntractor: VideoIntractor
 
+    @Mock
+    lateinit var context: Context
+
     lateinit var scheduler:IScheduler
 
 
@@ -38,7 +43,7 @@ class PlayListViewModelTest{
     fun setup(){
         MockitoAnnotations.initMocks(this)
         scheduler = TestScheduler
-        playListViewModel = PlayListViewModel(videoIntractor,scheduler)
+        playListViewModel = PlayListViewModel(context,videoIntractor,scheduler)
     }
 
     @Test
@@ -66,6 +71,10 @@ class PlayListViewModelTest{
         //return mock error when videoIntractor.loadPlayList() is called
         var exception = Exception("Mock Exception!!")
         `when`(videoIntractor.loadPlayList()).thenReturn(Observable.error(exception))
+
+        var mockError = "something went wrong!!"
+
+        `when`(context.getString(R.string.data_loading_error)).thenReturn( mockError)
 
         //loadChannelVideos
         playListViewModel.loadChannelVideos()

@@ -5,4 +5,6 @@ package com.vid90sec.videos.util.network
  */
 interface HttpConfig{
     fun baseUrl():String
+
+    fun showHttpLogs():Boolean
 }

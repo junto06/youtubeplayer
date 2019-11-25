@@ -1,5 +1,6 @@
 package com.vid90sec.videos.di
 
+import com.vid90sec.videos.ui.playlist.PlayListFragment
 import dagger.Component
 
 /**
@@ -9,5 +10,5 @@ import dagger.Component
     dependencies = [NetworkComponent::class])
 @VideoScope
 interface AppComponent{
-
+    fun inject(target: PlayListFragment)
 }

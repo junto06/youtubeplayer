@@ -1,6 +1,6 @@
 package com.vid90sec.videos.di
 
-import com.vid90sec.videos.AppHttpConfig
+import com.vid90sec.videos.data.source.youtube.api.YouTubeHttpConfig
 import com.vid90sec.videos.util.network.HttpConfig
 import com.vid90sec.videos.util.network.OkHttpHelper
 import com.vid90sec.videos.util.network.RetrofitHelper
@@ -17,10 +17,11 @@ import javax.inject.Singleton
 class NetworkModule{
 
     @Provides
-    fun provideHttpConfig():HttpConfig = AppHttpConfig
+    fun provideHttpConfig():HttpConfig = YouTubeHttpConfig
 
     @Provides
-    fun provideHttpClient():OkHttpClient = OkHttpHelper().createHttpClient()
+    @Singleton
+    fun provideHttpClient(httpConfig: HttpConfig):OkHttpClient = OkHttpHelper().createHttpClient(httpConfig)
 
     @Provides
     @Singleton

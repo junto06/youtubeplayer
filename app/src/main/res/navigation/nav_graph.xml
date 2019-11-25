@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph" app:startDestination="@id/action_main">
+
+    <navigation
+            android:id="@+id/action_main"
+            app:startDestination="@id/fragment_playlist">
+        <fragment
+                android:id="@+id/fragment_playlist" android:name="com.vid90sec.videos.ui.playlist.PlayListFragment"
+                android:label="playListFragment" tools:layout="@layout/fragment_playlist" >
+            <action
+                    android:id="@+id/action_play_video"
+                    app:destination="@id/playVideo_fragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/playVideo_fragment" android:name="com.vid90sec.videos.ui.player.youtube.CustomYouTubePlayer"
+            android:label="PlayVideo" tools:layout="@layout/custom_youtube_fragment" />
+
+    </navigation>
+
+</navigation>

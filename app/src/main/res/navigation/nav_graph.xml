@@ -8,15 +8,19 @@
             app:startDestination="@id/fragment_playlist">
         <fragment
                 android:id="@+id/fragment_playlist" android:name="com.vid90sec.videos.ui.playlist.PlayListFragment"
-                android:label="playListFragment" tools:layout="@layout/fragment_playlist" >
+                android:label="@string/title_playlist_fragment" tools:layout="@layout/fragment_playlist" >
             <action
                     android:id="@+id/action_play_video"
                     app:destination="@id/playVideo_fragment" />
         </fragment>
 
         <fragment
-            android:id="@+id/playVideo_fragment" android:name="com.vid90sec.videos.ui.player.youtube.CustomYouTubePlayer"
-            android:label="PlayVideo" tools:layout="@layout/custom_youtube_fragment" />
+            android:id="@+id/playVideo_fragment" android:name="com.vid90sec.videos.ui.player.youtube.YouTubePlayerFragment"
+            android:label="@string/title_video_player" tools:layout="@layout/youtube_player_fragment" >
+            <argument
+                    android:name="videoItem"
+                    app:argType="com.vid90sec.videos.domain.model.Video" />
+        </fragment>
 
     </navigation>
 

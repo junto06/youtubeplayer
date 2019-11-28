@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
@@ -36,6 +38,19 @@ android {
         enabled = true
         enabledForTests = true
     }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    lintOptions{
+        //Turn off anyalysis reporting
+        quiet true
+
+        abortOnError false
+
+        ignoreWarnings false
+    }
 }
 
 dependencies {
@@ -47,6 +62,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecyleExtVersion"
     implementation "com.google.android.material:$materialVersion"
 
+    //YouTube Player
+    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:$youTubeVersion"
+
     //Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
@@ -57,7 +75,9 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidXTestrunner"
     androidTestImplementation "androidx.test:core:$androidXTestCoreVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
 
+    
     //rxandroid
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
 
@@ -82,4 +102,5 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
 }

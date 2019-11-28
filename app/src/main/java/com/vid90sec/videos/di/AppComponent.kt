@@ -1,6 +1,8 @@
 package com.vid90sec.videos.di
 
+import android.app.Application
 import com.vid90sec.videos.ui.playlist.PlayListFragment
+import dagger.BindsInstance
 import dagger.Component
 
 /**

@@ -1,17 +1,22 @@
 package com.vid90sec.videos.ui
 
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.runner.AndroidJUnit4
 import com.vid90sec.videos.App
 import com.vid90sec.videos.R
+import com.vid90sec.videos.data.source.youtube.model.YouTubePlayList
 import com.vid90sec.videos.di.DaggerTestAndroidAppComponent
 import com.vid90sec.videos.di.MockVideoSourceModule
-import com.vid90sec.videos.factory.MockVideoFactory
+import com.vid90sec.videos.domain.model.PlayList
 import com.vid90sec.videos.factory.MockYouTubeVideoFactory
 import com.vid90sec.videos.ui.playlist.adapter.PlayListAdapter
+import com.vid90sec.videos.ui.playlist.adapter.PlayListViewHolder
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -22,20 +27,32 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest{
 
-    @Test
-    fun loadPlaylist_NoInternet_ShouldShowSnakbar() {
-
+    fun setupScenario(playList:YouTubePlayList?){
         //set app component before activity starts so activity doesn't set it
 
         var testComponent = DaggerTestAndroidAppComponent.builder()
-            .mockVideoSourceModule(MockVideoSourceModule(null)).build()
+            .mockVideoSourceModule(MockVideoSourceModule(playList)).build()
 
         App.instance.setTestComponent(testComponent)
 
         //start activity
         val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+    }
 
-        onView(withId(R.id.fragmentPlayList)).check(matches(isDisplayed()))
+    fun setupMockData():YouTubePlayList{
+        var mockPlayList = MockYouTubeVideoFactory.getMockYouTubePlayList(4);
+
+        setupScenario(mockPlayList)
+
+        return mockPlayList
+    }
+
+    @Test
+    fun loadPlaylist_NoInternet_ShouldShowSnakbar() {
+
+        setupScenario(null)
+
+        onView(withId(R.id.mainFragment)).check(matches(isDisplayed()))
 
         //check if playListRecyclerView is visible
         onView(withId(R.id.playListRecyclerView)).check(matches(isDisplayed()))
@@ -51,19 +68,10 @@ class MainActivityTest{
 
     @Test
     fun loadPlaylist_ShouldPopulateRecylerView() {
-        //set app component before activity starts so activity doesn't set it
 
-        var mockPlayList = MockYouTubeVideoFactory.getMockYouTubePlayList(4);
+        var mockPlayList = setupMockData()
 
-        var testComponent = DaggerTestAndroidAppComponent.builder()
-            .mockVideoSourceModule(MockVideoSourceModule(mockPlayList)).build()
-
-        App.instance.setTestComponent(testComponent)
-
-        //start activity
-        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
-
-        onView(withId(R.id.fragmentPlayList)).check(matches(isDisplayed()))
+        onView(withId(R.id.mainFragment)).check(matches(isDisplayed()))
 
         //check if playListRecyclerView is visible
         onView(withId(R.id.playListRecyclerView)).check(matches(isDisplayed()))
@@ -86,8 +94,63 @@ class MainActivityTest{
         //verify description
         onView(withId(R.id.playListRecyclerView))
             .check(matches(viewMatcherAtPosition(itemPosition, hasDescendant(withText(content.snippet.description)))))
+    }
+
+    @Test
+    fun openPlayer(){
+
+        setupMockData()
+
+        //open openPlayer screen
+        var itemPosition = 0
+        onView(withId(R.id.playListRecyclerView)).
+            perform(actionOnItemAtPosition<PlayListViewHolder>(itemPosition, click()))
+
+        //check if PlayerFragment is visible again
+        onView(withId(R.id.youTubePlayerFragment)).check(matches(isDisplayed()))
+
+        //check if YouTubePlayerView is visible again
+        onView(withId(R.id.youtubePlayerView)).check(matches(isDisplayed()))
+
+        //check if back button is visible
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).
+            check(matches(isDisplayed()))
 
 
+    }
 
+    @Test
+    fun testBackButtonOnPlayerScreen(){
+
+        setupMockData()
+
+        //open player screen
+        var itemPosition = 0
+        onView(withId(R.id.playListRecyclerView)).
+            perform(actionOnItemAtPosition<PlayListViewHolder>(itemPosition, click()))
+
+        //check if PlayerFragment is visible again
+        onView(withId(R.id.youTubePlayerFragment)).check(matches(isDisplayed()))
+
+        //check if back button is visible
+        onView(withContentDescription(R.string.abc_action_bar_up_description))
+            .check(matches(isDisplayed()))
+
+        //check if back button is visible
+        onView(withContentDescription(R.string.abc_action_bar_up_description))
+            .perform(click())
+
+        //check if PlayListFragment is visible again
+        onView(withId(R.id.mainFragment)).check(matches(isDisplayed()))
+
+        //open again
+        itemPosition = 0
+        onView(withId(R.id.playListRecyclerView)).perform(actionOnItemAtPosition<PlayListViewHolder>(itemPosition, click()))
+
+        //press back button
+        Espresso.pressBack()
+
+        //check if PlayListFragment is visible again
+        onView(withId(R.id.mainFragment)).check(matches(isDisplayed()))
     }
 }

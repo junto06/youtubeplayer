@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:app1="http://schemas.android.com/tools">
+
+        <data>
+                <variable name="videoModel" type="com.vid90sec.videos.ui.player.youtube.PlayerVideoModel"/>
+        </data>
+
+        <LinearLayout
+                android:id="@+id/youTubePlayerFragment"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                        android:id="@+id/youtubePlayerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:showFullScreenButton="false"
+                        app1:loadVideo="@{videoModel.data}"
+                        />
+
+</LinearLayout>
+</layout>

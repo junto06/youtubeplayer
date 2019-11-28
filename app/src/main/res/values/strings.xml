@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">90SeVideos</string>
 
+    <string name="title_playlist_fragment">PlayList</string>
+
+    <string name="title_video_player">Video Player</string>
+
     <string name="data_loading_error">Something went wrong, try again</string>
     <string name="data_loading_network_error">Network error</string>
 </resources>

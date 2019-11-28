@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="side_margin">100dp</dimen>
+    <dimen name="side_margin">48dp</dimen>
 
-    <dimen name="video_item_height">120dp</dimen>
+    <dimen name="video_item_height">220dp</dimen>
 
     <dimen name="video_item_space">40dp</dimen>
 

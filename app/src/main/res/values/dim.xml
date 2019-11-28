@@ -4,8 +4,6 @@
 
     <dimen name="video_item_height">250dp</dimen>
 
-    <dimen name="video_item_height_land">80dp</dimen>
-
     <dimen name="video_title_top_margin">8dp</dimen>
 
     <dimen name="video_description_top_margin">5dp</dimen>
@@ -13,5 +11,7 @@
     <item name="match_parent" type="dimen">-1</item>
 
     <dimen name="video_item_width">@dimen/match_parent</dimen>
+
+    <dimen name="video_item_space">0dp</dimen>
 
 </resources>

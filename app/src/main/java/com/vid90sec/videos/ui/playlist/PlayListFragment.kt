@@ -17,7 +17,8 @@ import com.vid90sec.videos.ui.base.getViewModel
 import com.vid90sec.videos.ui.playlist.adapter.ActionPlayVideo
 import com.vid90sec.videos.ui.playlist.adapter.PlayListAdapter
 import com.vid90sec.videos.ui.playlist.adapter.youtube.YouTubePlayListViewHolder
-import com.vid90sec.videos.util.android.VideoLayoutManager
+import com.vid90sec.videos.util.view.android.VideoItemSpaceDecoration
+import com.vid90sec.videos.util.view.android.VideoLayoutManager
 import javax.inject.Inject
 
 /**
@@ -67,6 +68,9 @@ class PlayListFragment:Fragment(){
     private fun setupRecyclerView() {
         var layoutManager = VideoLayoutManager.getPlayListLayout(requireContext())
         databinding.playListRecyclerView.layoutManager = layoutManager
+        databinding.playListRecyclerView.addItemDecoration(
+            VideoItemSpaceDecoration(resources.getDimensionPixelSize(R.dimen.video_item_space)))
+
 
         //TODO Vimeo change YouTubePlayListViewHolder to VimeoPlayListViewHolder while adapter same as below
         //playListAdapter = PlayListAdapter(R.layout.vimeo_playlist_item,VimeoPlayListViewHolder::class.java)
@@ -74,8 +78,8 @@ class PlayListFragment:Fragment(){
         playListAdapter = PlayListAdapter(R.layout.youtube_playlist_item,YouTubePlayListViewHolder::class.java,
             object :ActionPlayVideo{
                 override fun onPlayVideo(video: Video) {
-
-                    findNavController().navigate(R.id.action_play_video)
+                    var action = PlayListFragmentDirections.actionPlayVideo(video)
+                    findNavController().navigate(action)
                 }
             })
         databinding.playListRecyclerView.adapter = playListAdapter

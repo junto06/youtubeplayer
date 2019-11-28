@@ -1,7 +1,6 @@
-package com.vid90sec.videos.util.android
+package com.vid90sec.videos.util.view.android
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

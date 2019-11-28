@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="item" type="com.vid90sec.videos.domain.model.Video"/>
         <variable name="actionListener" type="com.vid90sec.videos.ui.playlist.adapter.ActionPlayVideo"/>
@@ -20,8 +20,8 @@
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/no_thumbnail"
-                />
+                app:loadThumbnailView="@{item.videoId}"
+            />
 
             <TextView
                 android:id="@+id/title"
@@ -29,11 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@{item.videoTitle}"
-                android:maxLines="2"
                 android:layout_marginTop="@dimen/video_title_top_margin"
-                android:textStyle = "bold"
-                android:textAppearance = "?android:attr/textAppearanceSmall"
-                android:textColor="@color/colorVideoTitle"/>
+                android:maxLines="2"
+                style="@style/videoTitle"/>
 
         <TextView
                 android:id="@+id/description"
@@ -42,9 +40,8 @@
                 android:layout_gravity="center_vertical"
                 android:text="@{item.videoDescription}"
                 android:maxLines="1"
-                android:textAppearance = "?android:attr/textAppearanceSmall"
-                android:textColor="@color/colorVideoTitle"
-                android:layout_marginTop="@dimen/video_description_top_margin"/>
+                android:layout_marginTop="@dimen/video_description_top_margin"
+                style="@style/videoDescription"/>
 
     </LinearLayout>
 </layout>

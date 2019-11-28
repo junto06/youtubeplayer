@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="videoTitle" parent="@android:style/TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorVideoTitle</item>
+    </style>
+
+    <style name="videoDescription" parent="@android:style/TextAppearance.Large">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorVideoDescription</item>
+    </style>
+
+</resources>

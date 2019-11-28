@@ -1,5 +1,6 @@
 package com.vid90sec.videos
 
+
 import android.app.Application
 import androidx.annotation.VisibleForTesting
 import com.vid90sec.videos.di.AppComponent
@@ -7,7 +8,7 @@ import com.vid90sec.videos.di.DaggerAppComponent
 import com.vid90sec.videos.di.DaggerNetworkComponent
 import timber.log.Timber
 
-class App : Application() {
+class App : Application(){
 
     companion object{
         lateinit var instance:App
